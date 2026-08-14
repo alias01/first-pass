@@ -11,15 +11,15 @@ Established: <date>. Update via the ai-pr-review skill, Phase 1, when convention
 <languages, frameworks, key libraries detected>
 
 ## Adopted rules (enforced in review)
-| Rule | Rationale | Source |
-|---|---|---|
-| e.g. "New error handling uses Result<T,E>, not throw" | Matches existing 80% of codebase | Existing convention |
-| e.g. "No `any` types in new TS code" | Low-effort, high-value; doesn't touch existing code | Google TS style guide |
+| Rule | Effort | Impact | Rationale | Source |
+|---|---|---|---|---|
+| e.g. "New error handling uses Result<T,E>, not throw" | Low | Low | Matches existing 80% of codebase | Existing convention |
+| e.g. "No `any` types in new TS code" | Low | Low | Forward-only; doesn't touch existing code | Google TS style guide |
 
 ## Deferred / worth discussing later (not enforced — do not flag in review)
-| Rule | Why it's deferred |
-|---|---|
-| e.g. "Standardize all API handlers to the newer middleware pattern" | Would require rewriting ~40 existing handlers; only worth it as a dedicated project |
+| Rule | Effort | Impact | Why it's deferred |
+|---|---|---|---|
+| e.g. "Standardize all API handlers to the newer middleware pattern" | High | High | Would require rewriting ~40 existing handlers; user chose to defer rather than adopt or reject outright |
 
 ## Explicitly rejected
 | Rule | Why we're not adopting it |
