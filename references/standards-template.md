@@ -25,8 +25,14 @@ Established: <date>. Update via the first-pass skill, Phase 1, when conventions 
 | Rule | Why we're not adopting it |
 |---|---|
 | e.g. "Airbnb's default export ban" | Codebase already uses default exports consistently; not worth churn |
+
+## Resolved inconsistencies (internal — codebase disagreed with itself)
+| Area | Variants found | Chosen standard | Rationale |
+|---|---|---|---|
+| e.g. "Error handling in API layer" | `throw` in `/api/legacy/*`, `Result<T,E>` in `/api/v2/*` | `Result<T,E>` | Newer code (per git history) and matches adopted big-company recommendation above |
 ```
 
 Notes for whoever (re)generates this file:
 - Every "Adopted" rule must be something the reviewer can actually check mechanically or by pattern-matching against real code — vague rules ("write clean code") aren't enforceable and shouldn't go in.
 - Keep "Deferred" and "Rejected" sections populated, not deleted — they prevent the same debate from resurfacing every time a big-company guide is checked again later.
+- "Resolved inconsistencies" exists because the codebase itself may have never picked a single pattern — flag these during Phase 1 exploration even if no external big-company guide addresses the specific case; internal consistency matters independent of matching an outside standard.
