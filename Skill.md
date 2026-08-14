@@ -7,13 +7,15 @@ description: Do a first-pass code review on a diff, PR, or file(s) before a huma
 
 A first-pass reviewer meant to catch 80% of what a human reviewer would flag, so the human's final pass is a glance, not a read-through. It runs in two phases: **Phase 1** happens once per project and produces a durable standards file; **Phase 2** is the actual review, run every time, and reads that file instead of re-deciding conventions each time.
 
+**Platform-agnostic by design.** This skill assumes only three capabilities — reading/writing files, getting a diff (via shell/git or pasted content), and looking up a language style guide (via web search or existing knowledge) — and degrades gracefully when one isn't available (see Phase 2 step 2). It doesn't assume Claude Code specifically or any one vendor's tool names, so it should run unmodified on any AI coding platform that supports the Agent Skills / `SKILL.md` convention.
+
 ## Phase 1 — Establish codebase standards (once per project, or on request)
 
 **When to run this phase:**
 - A review is requested but no standards file exists yet for this project (see below) — this phase is **mandatory** in that case, not optional. Phase 2 must never review against silently-assumed conventions; skipping straight to a review means every "standards" finding is a guess.
 - The user explicitly asks to set up, review, or update the project's standards
 
-**Where the standards file lives:** look for, in order: `.claude/CODE_REVIEW_STANDARDS.md`, `CODE_REVIEW_STANDARDS.md` at repo root, or ask the user if they already have a rule set for AI review elsewhere (a wiki page, a `CONTRIBUTING.md`, a linter config they consider authoritative, etc.) and offer to work from that instead of building a new one.
+**Where the standards file lives:** look for, in order: `CODE_REVIEW_STANDARDS.md` inside whichever agent-config directory the repo already uses (e.g. `.claude/`, `.cursor/`, `.codex/`, `.github/`, or equivalent — check what's actually present, don't assume one), `CODE_REVIEW_STANDARDS.md` at repo root, or ask the user if they already have a rule set for AI review elsewhere (a wiki page, a `CONTRIBUTING.md`, a linter config they consider authoritative, etc.) and offer to work from that instead of building a new one.
 
 **Steps:**
 
@@ -29,7 +31,7 @@ A first-pass reviewer meant to catch 80% of what a human reviewer would flag, so
 
    Never decide either bucket silently, but weight the discussion toward the second: present a table — **Rule | Current practice | Big-company recommendation | Effort | Impact | Suggested verdict** — and for every "Consider later" row, wait for an explicit per-row decision (adopt / defer / reject) rather than accepting a blanket "looks good" as covering it. Blanket agreement is fine for the "Adopt now" rows only.
 
-5. **Write the finalized rules** to `CODE_REVIEW_STANDARDS.md` (create `.claude/` first if that's the convention in this environment, otherwise repo root — ask if unclear). Use `references/standards-template.md` as the structure. This file is the source of truth Phase 2 reads every time — don't ask the user to re-explain conventions on future reviews.
+5. **Write the finalized rules** to `CODE_REVIEW_STANDARDS.md`, in whichever location the lookup order above found (or repo root, if none of those config directories exist and the user didn't say otherwise — ask if still unclear). Use `references/standards-template.md` as the structure. This file is the source of truth Phase 2 reads every time — don't ask the user to re-explain conventions on future reviews.
 
 ## Phase 2 — Review a diff or file(s)
 

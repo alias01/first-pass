@@ -5,7 +5,7 @@ Fill this in per-project and write it as the actual file. Keep entries terse —
 ```markdown
 # Code Review Standards — <project name>
 
-Established: <date>. Update via the ai-pr-review skill, Phase 1, when conventions change.
+Established: <date>. Update via the first-pass skill, Phase 1, when conventions change.
 
 ## Stack
 <languages, frameworks, key libraries detected>
